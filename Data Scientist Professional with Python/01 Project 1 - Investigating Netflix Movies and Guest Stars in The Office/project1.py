@@ -23,12 +23,59 @@ size =  np.zeros([len(episode_number)])
 size[has_guests == True] = 250
 size[has_guests == False] = 25
 
-# Have to calculate this index nicer...
-print(np.where(viewerships == viewerships.max()))
+# index of the outlier for the episode with super high viewership
+episode_highest_viewership = viewerships.argmax()
 
-# Configure scatterplot and show
-plt.scatter(episode_number, viewerships, s=size, c=col)
-plt.title("Popularity, Quality, and Guest Appearances on the Office")
-plt.xlabel("Episode Number")
-plt.ylabel("Viewership (Millions)")
+# save the name of the top star guest featuring in the highest viewed episode
+top_star = office_episodes.loc[episode_highest_viewership,'guest_stars']
+top_star = top_star.split(", ")
+top_star = top_star[2]
+print(top_star)
+
+#####################################
+# Configure scatterplot and show    #
+#####################################
+
+fig, ax = plt.subplots()
+
+fig.set_figwidth(10)
+fig.set_figheight(6)
+fig.set_dpi(140)
+
+ax.set_title("Popularity, Quality, and Guest Appearances on the Office")
+ax.set_xlabel("Episode Number")
+ax.set_ylabel("Viewership (Millions)")
+
+
+# create array that points out the episode with the highest viewership so we can set special marker
+cluster = np.zeros(len(episode_number))
+cluster[episode_highest_viewership] = 1
+
+# To set different markers we need two scatterplots
+# scatterplot 1
+episode_number_sc1 = episode_number[cluster==0]
+viewerships_sc1 = viewerships[cluster==0]
+size_sc1 = size[cluster==0]
+col_sc1 = col[cluster==0]
+
+# scatterplot 2
+episode_number_sc2 = episode_number[cluster==1]
+viewerships_sc2 = viewerships[cluster==1]
+size_sc2 = size[cluster==1]
+col_sc2 = col[cluster==1]
+ax.annotate(top_star, xy=(episode_number_sc2,viewerships_sc2), xytext=(episode_number_sc2+5,viewerships_sc2-0.3))
+
+ax.scatter(episode_number_sc1,viewerships_sc1, s=size_sc1, c=col_sc1, marker='o')
+ax.scatter(episode_number_sc2, viewerships_sc2, s=size_sc2, c=col_sc2, marker='*')
+
+fig.savefig('scatterplot_with_color.png', dpi=300)
+
 plt.show()
+
+# Uncomment below for what actually passed the course
+# fig, ax = plt.subplots()
+# ax.set_title("Popularity, Quality, and Guest Appearances on the Office")
+# ax.set_xlabel("Episode Number")
+# ax.set_ylabel("Viewership (Millions)")
+# plt.scatter(episode_number, viewerships, s=size, c=col, marker="o")
+# plt.show()
