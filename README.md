@@ -4,7 +4,7 @@ This is my GitHub repository for a set of courses offered by DataCamp through [w
 
 DataCamp offers the following courses I have opted to take:
 
-| Course #      | Course Name |
+| Course Order      | Course Name |
 | ----------- | ----------- |
 | 01      | Data Scientist Professional with Python       |
 | 02   | Data Analyst in SQL        |
