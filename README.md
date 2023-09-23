@@ -1,6 +1,6 @@
 # Datacamp Courses
 
-This is my GitHub repository for a set of courses offered by DataCamp through <www.datacamp.org> on learning Data Science.
+This is my GitHub repository for a set of courses offered by DataCamp through [www.datacamp.org](www.datacamp.org) on learning Data Science.
 
 DataCamp offers the following courses I have opted to take:
 
